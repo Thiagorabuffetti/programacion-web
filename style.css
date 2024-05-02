@@ -1,5 +1,6 @@
 body {
     margin: 0; 
+    padding: 0;
 }
 
 .container-fluid {
@@ -92,8 +93,7 @@ body {
 
 .imagen-derecha {
     width: 600px; 
-    height: auto; 
-    margin-right: 150px; 
+    height: auto;  
     margin-bottom: 40px;
     margin-top: auto;
   }
@@ -229,5 +229,44 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+}
+
+
+.sin-margin-derecho {
+    margin-right: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#footer {
+    margin-top: auto; 
+}
+
+#eliminarCarrito {
+    font-size: 14px; 
+    padding: 6px 12px; 
+}
+
+
+@media (max-width: 400px) {
+    #footer {
+        position: relative; 
+        margin-top: 20px; /* Ajustar la distancia entre el contenido y el footer */
+    }
+
+    #carrito {
+        margin-bottom: 80px; /* Ajustar la distancia entre el carrito y el footer */
+    }
+
+    #eliminarCarrito {
+        margin-top: 10px; /* Ajustar la distancia entre el botón de eliminar y el carrito */
+        width: 100%; /* Hacer que el botón de eliminar ocupe todo el ancho */
     }
 }
