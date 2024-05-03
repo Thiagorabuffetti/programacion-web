@@ -5,7 +5,8 @@ body {
 
 .container-fluid {
     padding-right: 0; 
-    padding-left: 0; 
+    padding-left: 0;
+    flex: 1;
 }
 
 .carousel-inner img {
@@ -258,15 +259,16 @@ body {
 @media (max-width: 400px) {
     #footer {
         position: relative; 
-        margin-top: 20px; /* Ajustar la distancia entre el contenido y el footer */
+        margin-top: 20px; 
     }
 
     #carrito {
-        margin-bottom: 80px; /* Ajustar la distancia entre el carrito y el footer */
+        margin-bottom: 80px; 
     }
 
     #eliminarCarrito {
-        margin-top: 10px; /* Ajustar la distancia entre el botón de eliminar y el carrito */
-        width: 100%; /* Hacer que el botón de eliminar ocupe todo el ancho */
+        margin-top: 10px; 
+        width: 100%; 
     }
 }
+
