@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const comprarBtn = document.getElementById("comprar");
 
     const productos = [
-        { id: 1, nombre: "Camiseta titular", precio: 100 },
-        { id: 2, nombre: "Camiseta suplente", precio: 100 },
-        { id: 3, nombre: "Camiseta arquero", precio: 100 },
+        { id: 1, nombre: "Camiseta titular", precio: 60000 },
+        { id: 2, nombre: "Camiseta suplente", precio: 60000 },
+        { id: 3, nombre: "Camiseta arquero", precio: 60000 },
     ];
-        
-    const carritoItems = {};
+
+    let carritoItems = JSON.parse(localStorage.getItem("carrito")) || {};
 
     function actualizarCarrito() {
         carritoList.innerHTML = "";
@@ -29,6 +29,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         totalCompra.textContent = `$${total}`;
+        // Guarda el carrito actualizado en localStorage
+        localStorage.setItem("carrito", JSON.stringify(carritoItems));
+
+        // Mostrar el carrito si tiene productos
+        if (Object.keys(carritoItems).length > 0) {
+            carrito.style.display = "block";
+        } else {
+            carrito.style.display = "none";
+        }
     }
 
     function agregarAlCarrito(id) {
@@ -38,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
             carritoItems[id] = 1;
         }
         actualizarCarrito();
-        carrito.style.display = "block";
     }
 
     function restarDelCarrito(id) {
@@ -49,17 +57,11 @@ document.addEventListener("DOMContentLoaded", function() {
             delete carritoItems[id];
         }
         actualizarCarrito();
-        if (Object.keys(carritoItems).length === 0) {
-            carrito.style.display = "none";
-        }
     }
 
     function eliminarCarrito() {
-        for (const id in carritoItems) {
-            delete carritoItems[id];
-        }
+        carritoItems = {};
         actualizarCarrito();
-        carrito.style.display = "none";
     }
 
     document.querySelectorAll("[data-id]").forEach(button => {
@@ -74,4 +76,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     eliminarCarritoBtn.addEventListener("click", eliminarCarrito);
+
+    // Guardar el carrito en localStorage y redirigir a la página del carrito
+    comprarBtn.addEventListener("click", function() {
+        window.location.href = "carrito.html"; // Cambia esto a la URL correcta
+    });
+
+    // Al cargar la página, actualizar el carrito con los datos de localStorage
+    actualizarCarrito();
 });

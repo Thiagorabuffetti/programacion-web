@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de compra</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="imagenes/logo.png" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon custom-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#seccion-asociate">Asociate</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="partidos.html">Partidos</a></li>
+                            <li><a class="dropdown-item" href="productos.html">Tienda</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="equipo.html">Equipo</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid top margenes">
+        <div id="carrito" class="top margenes">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Carrito</h5>
+                    <form class="top bottom">
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Email:</label>
+                          <input type="email" name="email"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label">Nombre y apellido:</label>
+                          <input class="form-control" name="name" type="text" aria-label="default input example">
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label">Numero de tarjeta:</label>
+                          <input class="form-control" name="number" type="text" aria-label="default input example">
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Codigo de seguridad:</label>
+                            <input class="form-control" name="name" type="text" aria-label="default input example">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Fecha de expiracion</label>
+                                <input class="form-control" name="name" type="text" aria-label="default input example">
+                        </div>
+                          </div>
+                        </div>
+                    <ul id="carrito-list" class="list-group"></ul>
+                    <p>Total: <span id="totalCompra">$0</span></p>
+                    <button id="finalizarCompra" class="btn btn-success btn-lg float-start">Finalizar Compra</button>
+                    <button id="eliminarCarrito" class="btn btn-danger btn-sm float-end">Eliminar productos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" class="background-navbar">
+        <div>
+            <p class="letra-blanca centrar letra grande"> Contactanos 0800-555-3489</p>
+        </div>
+        <div>
+            <p class="letra-blanca centrar">Pagina creada por Thiago Rabuffetti</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const carritoList = document.getElementById("carrito-list");
+            const totalCompra = document.getElementById("totalCompra");
+            const eliminarCarritoBtn = document.getElementById("eliminarCarrito");
+
+            const productos = [
+                { id: 1, nombre: "Camiseta titular", precio: 60000 },
+                { id: 2, nombre: "Camiseta suplente", precio: 60000 },
+                { id: 3, nombre: "Camiseta arquero", precio: 60000 },
+            ];
+
+            const carritoItems = JSON.parse(localStorage.getItem("carrito")) || {};
+
+            function actualizarCarrito() {
+                carritoList.innerHTML = "";
+                let total = 0;
+                for (const id in carritoItems) {
+                    const producto = productos.find(item => item.id === parseInt(id));
+                    if (producto) {
+                        const cantidad = carritoItems[id];
+                        const subtotal = cantidad * producto.precio;
+                        total += subtotal;
+                        const li = document.createElement("li");
+                        li.classList.add("list-group-item");
+                        li.textContent = `${producto.nombre}: ${cantidad} x $${producto.precio} = $${subtotal}`;
+                        carritoList.appendChild(li);
+                    }
+                }
+                totalCompra.textContent = `$${total}`;
+            }
+
+            function eliminarCarrito() {
+                localStorage.removeItem("carrito");
+                carritoList.innerHTML = "";
+                totalCompra.textContent = "$0";
+            }
+
+            eliminarCarritoBtn.addEventListener("click", eliminarCarrito);
+
+            actualizarCarrito();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
